@@ -22,6 +22,7 @@ function drawRoom() {
 
     // Add grid helper
     const gridHelper = new THREE.GridHelper(roomSide, 10, 0xFFBF00, 0xFFBF00);
+    gridHelper.position.y = 0;  // Ensure the grid is at the floor level
     scene.add(gridHelper);
 
     // Add axes helper
@@ -34,9 +35,10 @@ function drawRoom() {
     scene.add(light);
 
     // Add the room (a simple cube)
-    const roomGeometry = new THREE.BoxGeometry(roomSide, roomSide, roomSide);
+    const roomGeometry = new THREE.BoxGeometry(roomSide, personHeight, roomSide);
     const roomMaterial = new THREE.MeshBasicMaterial({color: 0xFFBF00, wireframe: true});
     const room = new THREE.Mesh(roomGeometry, roomMaterial);
+    room.position.y = personHeight / 2;  // Center the room vertically
     scene.add(room);
 
     // Function to create a capsule shape
@@ -73,8 +75,8 @@ function drawRoom() {
     }
 
     // Position the camera
-    camera.position.set(0, roomSide / 2, roomSide * 1.5);
-    camera.lookAt(0, roomSide / 2, 0);
+    camera.position.set(0, personHeight / 2, roomSide * 1.5);
+    camera.lookAt(0, personHeight / 2, 0);
 
     // Add rotation to the scene
     function animate() {
