@@ -72,3 +72,23 @@ function drawRoom() {
     animate();
 }
 
+function createCapsule(radius, height, radialSegments, heightSegments) {
+    const geometry = new THREE.CylinderGeometry(radius, radius, height - 2 * radius, radialSegments);
+    const material = new THREE.MeshBasicMaterial({color: 0xFFBF00});
+    
+    const cylinder = new THREE.Mesh(geometry, material);
+    
+    const sphereGeometry = new THREE.SphereGeometry(radius, radialSegments, heightSegments);
+    const topSphere = new THREE.Mesh(sphereGeometry, material);
+    const bottomSphere = new THREE.Mesh(sphereGeometry, material);
+    
+    topSphere.position.y = (height / 2) - radius;
+    bottomSphere.position.y = -(height / 2) + radius;
+    
+    const capsule = new THREE.Group();
+    capsule.add(cylinder);
+    capsule.add(topSphere);
+    capsule.add(bottomSphere);
+    
+    return capsule;
+}
