@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Visualization</title>
+    <title>3D Room Visualization</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
     <style>
         body {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Orbitron', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 0;
             padding: 20px;
             background-color: black;
-            color: green;
+            color: #FFBF00; /* Amber color */
+        }
+        #header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: #FFBF00; /* Amber color */
         }
         #controls {
             margin-bottom: 20px;
-        }
-        canvas {
-            border: 1px solid green;
-            background-color: black;
         }
         label {
             margin: 0 5px;
@@ -28,12 +32,30 @@
         input, button {
             margin: 0 5px;
             background-color: black;
-            color: green;
-            border: 1px solid green;
+            color: #FFBF00; /* Amber color */
+            border: 1px solid #FFBF00; /* Amber color */
+        }
+        .footer-text {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-family: 'Orbitron', sans-serif;
+            color: #FFBF00; /* Amber color */
+            font-size: 20px;
+        }
+        #canvas-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
+    <div id="header">AMBERVISION</div>
     <div id="controls">
         <label for="roomSize">Room Size (sq ft):</label>
         <input type="number" id="roomSize" value="60">
@@ -43,8 +65,11 @@
         <input type="number" id="personHeight" value="6">
         <button onclick="drawRoom()">Draw Room</button>
     </div>
-    <canvas id="roomCanvas" width="600" height="600"></canvas>
+    <div id="canvas-container"></div>
+    <div class="footer-text">Ambervision</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
 
