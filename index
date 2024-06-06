@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Visualization</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background-color: black;
+            color: green;
+        }
+        #controls {
+            margin-bottom: 20px;
+        }
+        canvas {
+            border: 1px solid green;
+            background-color: black;
+        }
+        label {
+            margin: 0 5px;
+        }
+        input, button {
+            margin: 0 5px;
+            background-color: black;
+            color: green;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <label for="roomSize">Room Size (sq ft):</label>
+        <input type="number" id="roomSize" value="60">
+        <label for="numPeople">Number of People:</label>
+        <input type="number" id="numPeople" value="10">
+        <label for="personHeight">Person Height (ft):</label>
+        <input type="number" id="personHeight" value="6">
+        <button onclick="drawRoom()">Draw Room</button>
+    </div>
+    <canvas id="roomCanvas" width="600" height="600"></canvas>
+
+
+</body>
+</html>
