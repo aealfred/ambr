@@ -41,7 +41,7 @@ function drawRoom() {
 
     // Load character model
     const loader = new THREE.GLTFLoader();
-    loader.load('path/to/character/model.glb', function(gltf) {
+    loader.load('path/to/character.glb', function(gltf) {
         const model = gltf.scene;
         model.scale.set(0.1, 0.1, 0.1);  // Adjust scale as necessary
         for (let i = 0; i < numPeople; i++) {
@@ -50,7 +50,7 @@ function drawRoom() {
             const personZ = (roomSide / 2 - 1) * Math.sin(angle);
             const person = model.clone();
             person.position.set(personX, 0, personZ);
-            person.scale.set(personHeight / 10, personHeight / 10, personHeight / 10);  // Adjust scale to match person height
+            person.scale.set(personHeight / 6, personHeight / 6, personHeight / 6);  // Adjust scale to match person height
             scene.add(person);
         }
     }, undefined, function(error) {
@@ -71,3 +71,4 @@ function drawRoom() {
     }
     animate();
 }
+
