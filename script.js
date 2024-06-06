@@ -15,9 +15,9 @@ function drawRoom() {
 
     // Set up the scene
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(600, 600);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
     // Add grid helper
@@ -39,23 +39,23 @@ function drawRoom() {
     const room = new THREE.Mesh(roomGeometry, roomMaterial);
     scene.add(room);
 
-    // Load character model
-    const loader = new THREE.GLTFLoader();
-    loader.load('path/to/character.glb', function(gltf) {
-        const model = gltf.scene;
-        model.scale.set(0.1, 0.1, 0.1);  // Adjust scale as necessary
-        for (let i = 0; i < numPeople; i++) {
-            const angle = (i / numPeople) * 2 * Math.PI;
-            const personX = (roomSide / 2 - 1) * Math.cos(angle);
-            const personZ = (roomSide / 2 - 1) * Math.sin(angle);
-            const person = model.clone();
-            person.position.set(personX, 0, personZ);
-            person.scale.set(personHeight / 6, personHeight / 6, personHeight / 6);  // Adjust scale to match person height
-            scene.add(person);
-        }
-    }, undefined, function(error) {
-        console.error(error);
-    });
+    // Function to create a capsule shape
+    function createCapsule(radius, height, radialSegments, heightSegments) {
+        const geometry = new THREE.CapsuleGeometry(radius, height - 2 * radius, radialSegments, heightSegments);
+        const material = new THREE.MeshBasicMaterial({color: 0xFFBF00});
+        return new THREE.Mesh(geometry, material);
+    }
+
+    // Add people (capsules)
+    const radius = 0.3; // Approximate radius for a person
+    for (let i = 0; i < numPeople; i++) {
+        const angle = (i / numPeople) * 2 * Math.PI;
+        const personX = (roomSide / 2 - 1) * Math.cos(angle);
+        const personZ = (roomSide / 2 - 1) * Math.sin(angle);
+        const person = createCapsule(radius, personHeight, 16, 16);
+        person.position.set(personX, personHeight / 2, personZ); // Adjust Y position to center the capsule vertically
+        scene.add(person);
+    }
 
     // Position the camera
     camera.position.z = roomSide * 1.5;
