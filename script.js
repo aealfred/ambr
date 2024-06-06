@@ -49,4 +49,10 @@ function drawRoom() {
         ctx.arc(personX, personY, personRadius, 0, 2 * Math.PI);
         ctx.fill();
     }
+    // Draw Ambervision text
+    ctx.font = '20px Courier New';
+    ctx.fillStyle = 'green';
+    ctx.textAlign = 'right';
+    ctx.fillText('Ambervision', canvas.width - 10, canvas.height - 10);
+  
 }
