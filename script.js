@@ -20,6 +20,14 @@ function drawRoom() {
     renderer.setSize(600, 600);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
+    // Add grid helper
+    const gridHelper = new THREE.GridHelper(roomSide, 10, 0xFFBF00, 0xFFBF00);
+    scene.add(gridHelper);
+
+    // Add axes helper
+    const axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
+
     // Add lighting
     const light = new THREE.PointLight(0xFFFFFF);
     light.position.set(10, 10, 10);
@@ -53,3 +61,4 @@ function drawRoom() {
     }
     animate();
 }
+
