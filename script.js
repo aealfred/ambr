@@ -54,9 +54,13 @@ function drawRoom() {
     // Position the camera
     camera.position.z = roomSide * 1.5;
 
-    // Render the scene
+    // Add rotation to the scene
     function animate() {
         requestAnimationFrame(animate);
+
+        // Rotate the scene
+        scene.rotation.y += 0.01;
+
         renderer.render(scene, camera);
     }
     animate();
