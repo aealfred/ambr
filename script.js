@@ -68,12 +68,13 @@ function drawRoom() {
         const personX = (roomSide / 2 - 1) * Math.cos(angle);
         const personZ = (roomSide / 2 - 1) * Math.sin(angle);
         const person = createCapsule(radius, personHeight, 16, 16);
-        person.position.set(personX, personHeight / 2, personZ); // Adjust Y position to center the capsule vertically
+        person.position.set(personX, radius, personZ); // Adjust Y position to place the capsule on the floor
         scene.add(person);
     }
 
     // Position the camera
-    camera.position.z = roomSide * 1.5;
+    camera.position.set(0, roomSide / 2, roomSide * 1.5);
+    camera.lookAt(0, roomSide / 2, 0);
 
     // Add rotation to the scene
     function animate() {
