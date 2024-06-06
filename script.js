@@ -4,55 +4,52 @@ function drawRoom() {
     const numPeople = parseInt(document.getElementById('numPeople').value);
     const personHeight = parseInt(document.getElementById('personHeight').value);
 
-    // Get canvas and context
-    const canvas = document.getElementById('roomCanvas');
-    const ctx = canvas.getContext('2d');
-
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw grid
-    const gridSize = 20; // Size of grid cells
-    ctx.strokeStyle = 'green';
-    ctx.lineWidth = 0.5;
-    for (let x = 0; x <= canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-    }
-    for (let y = 0; y <= canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-    }
-
     // Calculate room dimensions (assuming square room for simplicity)
-    const roomSide = Math.sqrt(roomSize) * 10; // Scale up for better visibility
-    const roomX = (canvas.width - roomSide) / 2;
-    const roomY = (canvas.height - roomSide) / 2;
+    const roomSide = Math.sqrt(roomSize);
 
-    // Draw room
-    ctx.strokeStyle = 'green';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(roomX, roomY, roomSide, roomSide);
+    // Remove previous scene if any
+    const oldCanvas = document.querySelector('#canvas-container canvas');
+    if (oldCanvas) {
+        oldCanvas.remove();
+    }
 
-    // Draw people
-    const personRadius = 10; // Fixed radius for simplicity
-    ctx.fillStyle = 'green';
+    // Set up the scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(600, 600);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+    // Add lighting
+    const light = new THREE.PointLight(0xFFFFFF);
+    light.position.set(10, 10, 10);
+    scene.add(light);
+
+    // Add the room (a simple cube)
+    const roomGeometry = new THREE.BoxGeometry(roomSide, roomSide, roomSide);
+    const roomMaterial = new THREE.MeshBasicMaterial({color: 0xFFBF00, wireframe: true});
+    const room = new THREE.Mesh(roomGeometry, roomMaterial);
+    scene.add(room);
+
+    // Add people (spheres)
+    const personGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+    const personMaterial = new THREE.MeshBasicMaterial({color: 0xFFBF00});
     for (let i = 0; i < numPeople; i++) {
         const angle = (i / numPeople) * 2 * Math.PI;
-        const personX = roomX + roomSide / 2 + (roomSide / 2 - personRadius) * Math.cos(angle);
-        const personY = roomY + roomSide / 2 + (roomSide / 2 - personRadius) * Math.sin(angle);
-        ctx.beginPath();
-        ctx.arc(personX, personY, personRadius, 0, 2 * Math.PI);
-        ctx.fill();
+        const personX = (roomSide / 2 - 1) * Math.cos(angle);
+        const personZ = (roomSide / 2 - 1) * Math.sin(angle);
+        const person = new THREE.Mesh(personGeometry, personMaterial);
+        person.position.set(personX, personHeight / 2, personZ);
+        scene.add(person);
     }
-    // Draw Ambervision text
-    ctx.font = '20px Courier New';
-    ctx.fillStyle = 'green';
-    ctx.textAlign = 'right';
-    ctx.fillText('Ambervision', canvas.width - 10, canvas.height - 10);
-  
+
+    // Position the camera
+    camera.position.z = roomSide * 1.5;
+
+    // Render the scene
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
 }
