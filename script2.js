@@ -205,6 +205,6 @@ function drawRoom() {
 
     // Attach export function to button
     document.getElementById('exportGLB').addEventListener('click', exportGLB);
-} 
+}  
 
 
