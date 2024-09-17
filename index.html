@@ -3,78 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Room Visualization</title>
+    <title>Ambervision</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
-    <style>
-        body {
-            font-family: 'Orbitron', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            background-color: black;
-            color: #FFBF00; /* Amber color */
-            height: 100vh;
-            overflow: hidden;
-        }
-        #header {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-            color: #FFBF00; /* Amber color */
-        }
-        #controls {
-            position: absolute;
-            top: 50px;
-            left: 10px;
-            margin-bottom: 20px;
-        }
-        label {
-            margin: 0 5px;
-        }
-        input, button {
-            margin: 0 5px;
-            background-color: black;
-            color: #FFBF00; /* Amber color */
-            border: 1px solid #FFBF00; /* Amber color */
-        }
-        .footer-text {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-family: 'Orbitron', sans-serif;
-            color: #FFBF00; /* Amber color */
-            font-size: 20px;
-        }
-        #canvas-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-        canvas {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="header">AMBERVISION</div>
+    <div id="header">Ambervision</div>
     <div id="controls">
         <label for="roomSize">Room Size (sq ft):</label>
-        <input type="number" id="roomSize" value="60">
-        <label for="numPeople">Number of People:</label>
-        <input type="number" id="numPeople" value="10">
-        <label for="personHeight">Person Height (ft):</label>
-        <input type="number" id="personHeight" value="6">
+        <input type="number" id="roomSize" value="2000" style="width: 67px;">
+        <label for="secondStory">Second Story:</label>
+        <input type="checkbox" id="secondStory">
+        <label for="firstStoryHeight">First Story Height (ft):</label>
+        <input type="number" id="firstStoryHeight" value="9" style="width: 43px;">
+        <label for="secondStoryHeight">Second Story Height (ft):</label>
+        <input type="number" id="secondStoryHeight" value="9" style="width: 43px;">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" value="10" style="width: 43px;">
+        
+        <label for="distribution">Distribution:</label>
+        <select id="distribution">
+            <option value="random">Random</option>
+            <option value="grid">Grid</option>
+        </select>
         <button onclick="drawRoom()">Draw Room</button>
+        <button id="pauseButton" onclick="pauseAnimation()">Pause</button>
+        <button id="playButton" onclick="playAnimation()" style="display: none;">Play</button>
+        <button id="exportGLB" onclick="exportGLB()">Export as GLB</button>
     </div>
     <div id="canvas-container"></div>
     <div class="footer-text">Ambervision</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js"></script>
+    <script src="script2.js"></script>
 </body>
 </html>
+
 
 
 
