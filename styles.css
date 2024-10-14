@@ -3,7 +3,7 @@ body {
     margin: 0;
     background-color: black;
     color: orange;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
