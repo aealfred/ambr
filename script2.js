@@ -1,13 +1,11 @@
 let rotate = true;
 
-// Define the pauseAnimation function
 function pauseAnimation() {
     rotate = false;
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('playButton').style.display = 'inline-block';
 }
 
-// Define the playAnimation function
 function playAnimation() {
     rotate = true;
     document.getElementById('pauseButton').style.display = 'inline-block';
@@ -15,7 +13,6 @@ function playAnimation() {
 }
 
 function drawRoom() {
-    // Get input values
     const roomSize = parseInt(document.getElementById('roomSize').value);
     const quantity = parseInt(document.getElementById('quantity').value);
     const secondStory = document.getElementById('secondStory').checked;
@@ -23,49 +20,40 @@ function drawRoom() {
     const secondStoryHeight = parseInt(document.getElementById('secondStoryHeight').value);
     const distribution = document.getElementById('distribution').value;
 
-    // Define a fixed shape height
-    const shapeHeight = 6; // or any fixed height value you prefer
+    const shapeHeight = 6; 
 
-    // Calculate room dimensions
     const roomHeight = secondStory ? firstStoryHeight + secondStoryHeight : firstStoryHeight;
     const roomLength = Math.sqrt(roomSize);
     const roomWidth = roomSize / roomLength;
 
-    // Remove previous scene if any
     const oldCanvas = document.querySelector('#canvas-container canvas');
     if (oldCanvas) {
         oldCanvas.remove();
     }
 
-    // Set up the scene
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    // Add grid helper
     const gridHelper = new THREE.GridHelper(roomLength, 10, 0xFFA500, 0xFFA500);
     gridHelper.position.y = 0;
     scene.add(gridHelper);
 
-    // Add axes helper
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
 
-    // Add lighting
     const light = new THREE.PointLight(0xFFFFFF);
     light.position.set(10, 10, 10);
     scene.add(light);
 
-    // Add the room (a simple cube)
     const roomGeometry = new THREE.BoxGeometry(roomLength, roomHeight, roomWidth);
     const roomMaterial = new THREE.MeshBasicMaterial({color: 0xFFA500, wireframe: true});
     const room = new THREE.Mesh(roomGeometry, roomMaterial);
     room.position.y = roomHeight / 2;
     scene.add(room);
 
-    // Add second floor if second story is checked
     if (secondStory) {
         const secondFloorGeometry = new THREE.BoxGeometry(roomLength, 0.1, roomWidth);
         const secondFloorMaterial = new THREE.MeshBasicMaterial({color: 0xFFA500, wireframe: true});
@@ -78,7 +66,6 @@ function drawRoom() {
         scene.add(secondGridHelper);
     }
 
-    // Function to create a capsule shape
     function createCapsule(radius, height, radialSegments, heightSegments) {
         const geometry = new THREE.CylinderGeometry(radius, radius, height - 2 * radius, radialSegments);
         const material = new THREE.MeshBasicMaterial({color: 0xFFA500});
@@ -100,7 +87,6 @@ function drawRoom() {
         return capsule;
     }
 
-    // Calculate positions
     const positions = [];
     const radius = 0.5;
     const maxColumns = Math.floor(Math.sqrt(quantity));
@@ -108,7 +94,6 @@ function drawRoom() {
     const numRows = Math.ceil(quantity / maxColumns);
     const verticalSpacing = roomWidth / (numRows + 1);
 
-    // Generate positions based on distribution type
     if (distribution === 'grid') {
         for (let i = 0; i < quantity; i++) {
             const row = Math.floor(i / maxColumns);
@@ -141,32 +126,27 @@ function drawRoom() {
         }
     }
 
-    // Add shapes (capsules) to the scene
     positions.forEach(position => {
         const shape = createCapsule(radius, shapeHeight, 16, 16);
         shape.position.set(position.x, position.y, position.z);
         scene.add(shape);
     });
 
-    // Adjust the camera to fit the entire room within the view
     camera.position.set(0, roomHeight / 2, roomLength * 1.5);
     camera.lookAt(0, roomHeight / 2, 0);
 
-    // Ensure the renderer resizes correctly with the window
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Add OrbitControls for click-and-drag functionality
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.screenSpacePanning = false;
     controls.maxPolarAngle = Math.PI;
 
-    // Handle scroll to zoom
     window.addEventListener('wheel', (event) => {
         if (event.deltaY < 0) {
             camera.position.z -= 1;
@@ -175,7 +155,6 @@ function drawRoom() {
         }
     });
 
-    // Add rotation to the scene
     function animate() {
         requestAnimationFrame(animate);
 
@@ -187,7 +166,6 @@ function drawRoom() {
     }
     animate();
 
-    // Export GLB function
     function exportGLB() {
         const exporter = new THREE.GLTFExporter();
         exporter.parse(scene, function (gltf) {
@@ -203,7 +181,6 @@ function drawRoom() {
         }, { binary: true });
     }
 
-    // Attach export function to button
     document.getElementById('exportGLB').addEventListener('click', exportGLB);
 }  
  
