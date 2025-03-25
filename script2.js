@@ -1,5 +1,4 @@
 let rotate = true;
-
 function pauseAnimation() {
     rotate = false;
     document.getElementById('pauseButton').style.display = 'none';
@@ -183,5 +182,3 @@ function drawRoom() {
 
     document.getElementById('exportGLB').addEventListener('click', exportGLB);
 }  
- 
-
