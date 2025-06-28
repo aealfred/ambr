@@ -36,7 +36,7 @@ function drawRoom() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    const gridHelper = new THREE.GridHelper(roomLength, 10, 0xFFA500, 0xFFA500);
+    const gridHelper = new THREE.GridHelper(roomLength, 10, 0xFF8C00}, 0xFF8C00});
     gridHelper.position.y = 0;
     scene.add(gridHelper);
 
@@ -48,26 +48,26 @@ function drawRoom() {
     scene.add(light);
 
     const roomGeometry = new THREE.BoxGeometry(roomLength, roomHeight, roomWidth);
-    const roomMaterial = new THREE.MeshBasicMaterial({color: 0xFFA500, wireframe: true});
+    const roomMaterial = new THREE.MeshBasicMaterial({color: 0xFF8C00}, wireframe: true});
     const room = new THREE.Mesh(roomGeometry, roomMaterial);
     room.position.y = roomHeight / 2;
     scene.add(room);
 
     if (secondStory) {
         const secondFloorGeometry = new THREE.BoxGeometry(roomLength, 0.1, roomWidth);
-        const secondFloorMaterial = new THREE.MeshBasicMaterial({color: 0xFFA500, wireframe: true});
+        const secondFloorMaterial = new THREE.MeshBasicMaterial({color: 0xFF8C00}, wireframe: true});
         const secondFloor = new THREE.Mesh(secondFloorGeometry, secondFloorMaterial);
         secondFloor.position.y = firstStoryHeight + 0.05;
         scene.add(secondFloor);
 
-        const secondGridHelper = new THREE.GridHelper(roomLength, 10, 0xFFA500, 0xFFA500);
+        const secondGridHelper = new THREE.GridHelper(roomLength, 10, 0xFF8C00}, 0xFF8C00});
         secondGridHelper.position.y = firstStoryHeight;
         scene.add(secondGridHelper);
     }
 
     function createCapsule(radius, height, radialSegments, heightSegments) {
         const geometry = new THREE.CylinderGeometry(radius, radius, height - 2 * radius, radialSegments);
-        const material = new THREE.MeshBasicMaterial({color: 0xFFA500});
+        const material = new THREE.MeshBasicMaterial({color: 0xFF8C00}});
         
         const cylinder = new THREE.Mesh(geometry, material);
         
