@@ -36,7 +36,7 @@ function drawRoom() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    const gridHelper = new THREE.GridHelper(roomLength, 10, 0xFF8C00}, 0xFF8C00});
+    const gridHelper = new THREE.GridHelper(roomLength, 10, 0xFF8C00, 0xFF8C00);
     gridHelper.position.y = 0;
     scene.add(gridHelper);
 
@@ -60,7 +60,7 @@ function drawRoom() {
         secondFloor.position.y = firstStoryHeight + 0.05;
         scene.add(secondFloor);
 
-        const secondGridHelper = new THREE.GridHelper(roomLength, 10, 0xFF8C00}, 0xFF8C00});
+        const secondGridHelper = new THREE.GridHelper(roomLength, 10, 0xFF8C00, 0xFF8C00);
         secondGridHelper.position.y = firstStoryHeight;
         scene.add(secondGridHelper);
     }
