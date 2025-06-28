@@ -48,14 +48,14 @@ function drawRoom() {
     scene.add(light);
 
     const roomGeometry = new THREE.BoxGeometry(roomLength, roomHeight, roomWidth);
-    const roomMaterial = new THREE.MeshBasicMaterial({color: 0xFF8C00}, wireframe: true});
+    const roomMaterial = new THREE.MeshBasicMaterial({color: 0xFF8C00, wireframe: true});
     const room = new THREE.Mesh(roomGeometry, roomMaterial);
     room.position.y = roomHeight / 2;
     scene.add(room);
 
     if (secondStory) {
         const secondFloorGeometry = new THREE.BoxGeometry(roomLength, 0.1, roomWidth);
-        const secondFloorMaterial = new THREE.MeshBasicMaterial({color: 0xFF8C00}, wireframe: true});
+        const secondFloorMaterial = new THREE.MeshBasicMaterial({color: 0xFF8C00, wireframe: true});
         const secondFloor = new THREE.Mesh(secondFloorGeometry, secondFloorMaterial);
         secondFloor.position.y = firstStoryHeight + 0.05;
         scene.add(secondFloor);
@@ -67,7 +67,7 @@ function drawRoom() {
 
     function createCapsule(radius, height, radialSegments, heightSegments) {
         const geometry = new THREE.CylinderGeometry(radius, radius, height - 2 * radius, radialSegments);
-        const material = new THREE.MeshBasicMaterial({color: 0xFF8C00}});
+        const material = new THREE.MeshBasicMaterial({color: 0xFF8C00});
         
         const cylinder = new THREE.Mesh(geometry, material);
         
