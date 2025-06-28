@@ -2,7 +2,7 @@ body {
     font-family: 'Orbitron', sans-serif;
     margin: 0;
     background-color: black;
-    color: orange;
+    color: darkorange;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -13,7 +13,7 @@ body {
 
 #header {
     font-size: 34px;
-    color: #ffa500;
+    color: darkorange;
     padding: 20px;
 
 }
@@ -31,8 +31,8 @@ body {
 label, input, button, select {
     margin: 5px;
     background-color: black;
-    color: orange;
-    border: 1px solid orange;
+    color: darkorange;
+    border: 1px darkorange;
     font-family: 'Orbitron', sans-serif;
     font-size: 14px;
 
@@ -59,7 +59,7 @@ button {
     bottom: 10px;
     right: 10px;
     font-family: 'Orbitron', sans-serif;
-    color: orange;
+    color: darkorange;
     font-size: 20px;
 
 
@@ -78,7 +78,7 @@ button {
   ::-webkit-scrollbar-thumb {
     background-color: #888; 
     border-radius: 6px; 
-    border:3px solid orange; 
+    border:3px darkorange; 
 
   
 }
